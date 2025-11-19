@@ -1,0 +1,307 @@
+body {
+    overflow: hidden;
+    font-family:monospace;
+    z-index: 1;
+}
+main {
+    margin: 2% 15%;
+}
+h1 {
+    justify-self:center;
+    width:fit-content;
+    border-style: solid;
+    border-width: 0.18em 0.18em 0;
+    border-color: black;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    margin-bottom: 0;
+    padding: 0.4em;
+    background-color:blanchedalmond;
+    visibility: hidden;
+}
+h3,p {
+    margin: 1%;
+}
+.scene {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 0;
+}
+#gameSpace {
+    background-image: url(media/background.jpg);
+    background-size: cover;
+    padding: 3% 5% 0;
+    height: 75vh;
+    border-style: solid;
+    border-width: 0.35em;
+    border-color: black;
+    border-radius: 1em;
+    display:flex;
+    position:relative;
+}
+#timeBar {
+    align-self: flex-end;
+    margin-top: auto;
+    margin-bottom: 5%;
+    height: 5vh;
+    width: 75%;
+    border-style: solid;
+    border-width: 0.35em;
+    border-color: black;
+}
+#time {
+    background-color: rgb(38, 199, 17);
+    height: 100%;
+}
+#word {
+    display: flex;
+    flex-direction: row;
+    width:max-content;
+}
+#menu {
+    display:none;
+    font-size: 100%;
+    justify-content: flex-start;
+}
+#instruction {
+    display:none;
+}
+#game {
+    display:none;
+    background-image: url(media/road.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+#pause, #gameOver {
+    display:none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255,255,255,0.9);
+}
+#pause {
+    background-color: rgba(255,255,255,0.5);
+}
+button {
+    width: 12vw;
+    height: 6vw;
+    margin-top: 1.5%;
+    font-size: 1.4vw;
+    font-weight: bold;
+    border-style: solid;
+    border-width: 0.15em;
+    border-color: rgb(202, 104, 34);
+    border-radius: 1em;
+    background-color: rgb(250, 201, 127);
+    transition: .2s;
+}
+button:hover {
+    background-color: rgb(253, 191, 97);
+    transform: scale(110%);
+}
+.text {
+    width: 70%;
+    font-size: 1.2vw;
+    font-weight: bold;
+    border-style: solid;    
+    border-width: 0.18em;
+    border-color: rgb(202, 104, 34);
+    border-radius: 1em;
+    background-color: rgb(250, 201, 127);
+    padding: 0.7em;
+    text-align: left;
+    text-anchor: middle;
+    word-break: break-word;
+}
+.back {
+    width: 8vw;
+    height: 4vw;
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+}
+.pause {
+    width: 8vw;
+    height: 4vw;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    margin-top: auto;
+}
+#enemy {
+    aspect-ratio: 1;
+}
+.mugiShows {
+    position: absolute;
+    right: 1%;
+    bottom: 1%;
+}
+#wrapper {
+    display:flex;
+    position: absolute;
+    padding:0;
+    bottom: 0;
+    width: 40%;
+    align-items: flex-end;
+    flex-direction: column;
+}
+.hp {
+    position: absolute;
+    height: 20%;
+    left: 5%;
+    top: -15%;
+    display:flex;
+    flex-direction: row;
+}
+#wordText{
+    display:flex;
+    position: absolute;
+    width:49%;
+    height:42%;
+    right:0;
+    top:0;
+    padding: auto 0;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.9vw;
+}
+#wordText p {
+    color: red;
+}
+#gameOver p {
+    font-size: 5em;
+    font-weight: bold;
+    color: red;
+}
+#points, #points2 {
+    padding:1%;
+    margin-top: 3%;
+    font-size: 1.2vw;
+    border-style: solid;
+    border-width: 0.15em;
+    border-color: rgb(202, 104, 34);
+    border-radius: 1em;
+    background-color:blanchedalmond;
+}
+#points {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    font-weight: bold;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+#points2 {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+}
+#points2 p {
+    font-size: 1.2vw;
+    font-weight: bold;
+    color: black;
+}
+.mugiCry {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+}
+#registerLogIn {
+    display: flex;
+    justify-content: flex-start;
+}
+.registerlogin {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    font-size: 1.8vw;
+    border-style: solid;
+    border-width: 0 0 0.15em 0.15em;
+    border-color: rgb(202, 104, 34);
+    border-bottom-left-radius: 0.25em;
+}
+.label {
+    background-color: rgb(255, 255, 255);
+    padding:2%;
+    border-top-right-radius: 0.5em;
+    border-style:solid;
+    border-width: 0.05em;
+    border-bottom-style: none;
+    border-color: rgb(202, 104, 34);
+    width:min-content;
+}
+.logininput {
+    height: 2em;
+    border-radius: 0 0.5em 0.5em 0;
+    border-style: solid;
+    border-color: rgb(202, 104, 34);
+    border-width: 0.05em;
+    font-size: 1.2vw;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input:focus {
+    outline:rgb(202, 104, 34);
+    outline-width: 0.1vw;
+    outline-style: solid;
+}
+.response {
+    width: 25%;
+    height:min-content;
+    word-break: break-word;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    margin-left: 5%;
+}
+.username {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: fit-content;
+}
+.leaderboard {
+    overflow-y: scroll;
+    height: 26vw;
+}
+#leaderboard {
+    display:none;
+    margin-top:-4%;
+}
+#leaderboard h1 {
+    background-color:rgb(253, 191, 97);
+    border-color: rgb(202, 104, 34);
+    color: rgb(202, 104, 34);
+    visibility: visible;
+}
+::-webkit-scrollbar{
+	background: transparent;
+}
+::-webkit-scrollbar-thumb{
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 1vw;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+}
+::-webkit-scrollbar-track-piece:start {
+    margin-top:2vw;
+}
+::-webkit-scrollbar-track-piece:end {
+    margin-bottom:2vw;
+}
