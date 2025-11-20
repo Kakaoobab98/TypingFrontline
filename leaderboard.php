@@ -18,7 +18,8 @@ for ($i = 0; $i < count($leaderboardFile); $i++)
 }
 if (count($response) === 0)
     $response[] = [
-        'no_record' => 'no_record'
+        'username' => "no_record",
+        'points' => "no_record"
     ];
 
 echo json_encode($response);

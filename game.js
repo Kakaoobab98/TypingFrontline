@@ -8,7 +8,7 @@ const words = ["TANK", "PISTOL", "AXE", "SWORD", "GRENADE", "KNIFE", "MILITARY",
                "ICESPIKES", "STICK", "KICK", "PUNCH", "LASEREYE", "LOVE", "HUG",
                "STAB", "DODGE", "NIPPLETWIST"]; //HEAL
 const enemys = ["tank", "goblin", "alienGorilla", "monster", "bunny", "cat", "asgore",
-                "something", "bat", "pigman", "gus", "walter", "nyan"];
+                "something", "bat", "pigman", "gus", "walter", "nyan", "signora"];
 
 const pauseBtn = document.querySelector(".pause");
 const difficultyBtn = document.querySelector(".difficulty");
@@ -278,7 +278,6 @@ function LeaderBoard()
     })
     .then(res => res.json())
     .then(data => {
-        console.log("asd");
 
         const leaderboard = document.querySelector(".leaderboard");
 
