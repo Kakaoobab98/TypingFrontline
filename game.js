@@ -1,3 +1,4 @@
+
 const whatsthehezag = document.querySelector("#time");
 const enemy = document.querySelector("#enemy");
 const word = document.querySelector("#word");
@@ -27,7 +28,6 @@ const wordText = document.querySelector("#wordText");
 const pointsText = document.querySelector("#points");
 
 const difficulty = ["EASY", "MEDIUM", "HARD"];
-
 
 ////////////////////////////////////////////////
 
@@ -276,15 +276,25 @@ function LeaderBoard()
     fetch('leaderboard.php', {
         method: 'GET',
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(response => response.json())
+    .then(items => {
 
-        const leaderboard = document.querySelector(".leaderboard");
+        const table = document.querySelector(".table");
+        const currentUsername = document.querySelector(".currentUsername").innerHTML;
 
-        leaderboard.innerHTML = "";
-        
-        for (let i = 0; i < data.length; i++)
-            leaderboard.innerHTML += `<p>${data[i].username}\t${data[i].points}</p>\n`;
+        table.innerHTML = `<thead><tr><th>NAMES</th><th>POINTS</th><th>DATE</th></tr></thead>`;
+
+        for (const item of items)
+        {
+            if (item.username === currentUsername)
+            {
+                table.innerHTML += `<tbody><tr class="currentBg"><td>${item.username}</td><td>${item.points}</td><td>${item.date}</td></tr></tbody>`;
+            }else
+            {
+                table.innerHTML += `<tbody><tr><td>${item.username}</td><td>${item.points}</td><td>${item.date}</td></tr></tbody>`;
+            }
+        }
+
     })
 
     menu.style.display = "none";
@@ -340,7 +350,7 @@ addEventListener("keydown", function(e)
             let letter = this.document.createElement("p");
             letter.style.fontWeight = "bold";
             letter.style.fontSize = "3em";
-            letter.style.color = "rgba(117, 55, 13, 1)";
+            letter.style.color = "rgb(89, 41, 7)";
             letter.innerText = e.key.toUpperCase();
 
             if(currentLetterIndex < word.children.length)

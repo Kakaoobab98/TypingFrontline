@@ -1,42 +1,52 @@
 <?php
 
-$username = $_POST['username'];
-$points = $_POST['points'];
-
-$pointsArray = file("points.dat", FILE_SKIP_EMPTY_LINES) ?: [];
-$brakeInLoop = false;
-
-for ($i = 0; $i < count($pointsArray); $i++)
+try{
+function SetSQLViaPlayerExisting()
 {
-    $temp = explode(" ", $pointsArray[$i]); 
-    
-    if ($username === $temp[0] && (int)$points <= (int)trim($temp[1]))
+    global $conn, $sql, $postedUsername, $postedPoints;
+
+    $statement = $conn->query($sql);
+
+    if ($statement->rowCount() == 0)
     {
-        $brakeInLoop = true;
-        break;
-    }else
-    if ((int)$points > (int)trim($temp[1]) && $username === $temp[0] && !$brakeInLoop)
+        $sql = "INSERT INTO Users (username, points) VALUES ('" . $postedUsername . "', " . $postedPoints . "')";
+    }else 
     {
-        $pointsArray[$i] = $username. " " . $points . "\n";
-        $brakeInLoop = true;
-        break;
-    }else
-    if ($username === $temp[0])
-    {
-        array_splice($pointsArray, $i, 1);
-        break;
-    }else
-    if ((int)$points > (int)trim($temp[1]))
-    {
-        array_splice($pointsArray, $i, 0, [$username . " " . $points . "\n"]);
-        $i++;
-        $brakeInLoop = true;
-        continue;
+        if ((int)$statement->fetch()['points'] <= (int)$postedPoints)
+        {
+            $sql = "UPDATE Users SET points='" . $postedPoints . "' WHERE username='" . $postedUsername . "'";
+        }else exit();
     }
-}
-if (!$brakeInLoop)
-{
-    array_push($pointsArray, $username . " " . $points . "\n");
+
+    $statement = null;
+
+    $conn->exec($sql);
 }
 
-file_put_contents("points.dat",$pointsArray);
+#region Setup
+
+$postedUsername = $_POST['username'];
+$postedPoints = $_POST['points'];
+$dns = "mysql:host=mysql.caesar.elte.hu;dbname=tkrissz";
+
+$SQLusername = "tkrissz";
+
+$file = fopen("imp.dat","r");
+$SQLpassword = fread($file,filesize("imp.dat"));
+fclose($file);
+
+$response = "";
+
+$conn = new PDO($dns,$SQLusername,$SQLpassword);
+
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$sql = "SELECT username, points FROM Users WHERE username='" . $postedUsername . "'";
+
+#endregion
+
+SetSQLViaPlayerExisting();
+}catch(Exception $e)
+{
+    var_dump($e->getMessage());
+}

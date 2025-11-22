@@ -1,5 +1,7 @@
 <?php
 
+#region Setup
+
 $postedUsername = $_POST['username'];
 $postedPassword = $_POST['password'];
 
@@ -19,10 +21,6 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $sql = "INSERT INTO Users (username, password, points) VALUE ('" . $postedUsername . "', '" . password_hash($postedPassword, PASSWORD_DEFAULT) . "', '0')";
 
-var_dump("exec előtt");
-try {
-    $conn->exec($sql);
-}catch(Exception $e)
-{
-    var_dump($e->getMessage());
-}
+#endregion
+
+$conn->exec($sql);

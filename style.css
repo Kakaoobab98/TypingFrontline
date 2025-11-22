@@ -99,6 +99,7 @@ button {
     border-radius: 1em;
     background-color: rgb(250, 201, 127);
     transition: .2s;
+    color: rgb(89, 41, 7);
 }
 button:hover {
     background-color: rgb(253, 191, 97);
@@ -117,6 +118,7 @@ button:hover {
     text-align: left;
     text-anchor: middle;
     word-break: break-word;
+    color: rgb(89, 41, 7);
 }
 .back {
     width: 8vw;
@@ -197,6 +199,7 @@ button:hover {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: none;
+    color:rgb(89, 41, 7);
 }
 #points2 {
     position: relative;
@@ -209,7 +212,7 @@ button:hover {
 #points2 p {
     font-size: 1.2vw;
     font-weight: bold;
-    color: black;
+    color: rgb(89, 41, 7);
 }
 .mugiCry {
     position: absolute;
@@ -240,6 +243,7 @@ button:hover {
     border-bottom-style: none;
     border-color: rgb(202, 104, 34);
     width:min-content;
+    color:rgb(89, 41, 7);
 }
 .logininput {
     height: 2em;
@@ -287,7 +291,7 @@ input:focus {
 #leaderboard h1 {
     background-color:rgb(253, 191, 97);
     border-color: rgb(202, 104, 34);
-    color: rgb(202, 104, 34);
+    color:rgb(89, 41, 7);
     visibility: visible;
 }
 ::-webkit-scrollbar{
@@ -304,4 +308,34 @@ input:focus {
 }
 ::-webkit-scrollbar-track-piece:end {
     margin-bottom:2vw;
+}
+.table {
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    justify-content: center;
+    border-collapse: collapse;
+    color:rgb(89, 41, 7);
+    border-color:rgb(89, 41, 7)
+}
+.table th, .table td {
+    padding: 1% 0;
+}
+.table thead th {
+    border-width: 0 0 0.2em;
+    border-style: solid;
+    margin: 0;
+}
+.table thead th:nth-child(2) {
+    border-width: 0 0.2em 0.2em;
+}
+.table tbody td:nth-child(2) {
+    border-width: 0.13em 0.2em 0;
+    border-style: dashed solid;
+}
+.table tbody td {
+    border-top: 0.13em dashed;
+}
+.currentBg {
+    background-color: rgb(245, 163, 69);
 }

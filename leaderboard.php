@@ -1,25 +1,40 @@
 <?php
 
-$leaderboardFile = file('points.dat', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-$response = array();
-
-header('Content-Type: application/json');
-
-for ($i = 0; $i < count($leaderboardFile); $i++)
+function ShowLeaderBoard()
 {
-    $leaderboardFile[$i] = explode(" ", $leaderboardFile[$i]);
-    $username = $leaderboardFile[$i][0];
-    $points = $leaderboardFile[$i][1];
-    $response[] = [
-        'username' => $username,
-        'points' => $points
-    ];
-}
-if (count($response) === 0)
-    $response[] = [
-        'username' => "no_record",
-        'points' => "no_record"
-    ];
+    global $conn, $sql, $response;
 
-echo json_encode($response);
+
+    foreach($conn->query($sql) as $row)
+    {
+        $response[] = [
+            'username' => $row['username'],
+            'points' => $row['points'],
+            'date' => (new DateTime($row['date']))->format("H:i Y/m/d")
+        ];
+    }
+
+    echo json_encode($response);
+}
+
+#region Setup
+
+$dns = "mysql:host=mysql.caesar.elte.hu;dbname=tkrissz";
+
+$SQLusername = "tkrissz";
+
+$file = fopen("imp.dat","r");
+$SQLpassword = fread($file,filesize("imp.dat"));
+fclose($file);
+
+$response = [];
+
+$conn = new PDO($dns,$SQLusername,$SQLpassword);
+
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$sql = "SELECT username, points, date FROM Users ORDER BY points DESC";
+
+#endregion
+
+ShowLeaderBoard();

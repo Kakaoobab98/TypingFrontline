@@ -16,7 +16,7 @@ document.querySelector(".submit").addEventListener('click', e => {
 function SetMenu(formData)
 {
     const username = document.querySelector(".username");
-    username.innerHTML = "User: " + formData.get("username");
+    username.innerHTML = 'User: <span class="currentUsername">' + formData.get("username") + '</span>';
     username.style.display = "block";
     Menu();
 }

@@ -106,7 +106,13 @@
                 <div id="leaderboard" class="scene">
                     <h1>LEADERBOARD</h1>
                     <div class="text leaderboard">
-                        
+                        <table class="table">
+                            <tr>
+                                <th>NAME</th>
+                                <th>POINTS</th>
+                                <th>DATE</th>
+                            </tr>
+                        </table>
                     </div>
                     <button class="back">BACK</button>
                 </div>
