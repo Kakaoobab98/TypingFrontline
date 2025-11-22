@@ -1,46 +1,49 @@
 <?php
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-
-$accounts = fopen("account.dat", "r") or die("Error.");
-$usernameMatches = false;
-
-
-while (!feof($accounts))
-{
-    $line = fgets($accounts);
-    $line = explode(" ", $line);
-    
-    if ($line[0] === $username)
+function FoundUser($password){
+    global $postedPassword, $response;
+    if (password_verify($postedPassword, $password))
     {
-        $usernameMatches = true;
-        if (password_verify($password, $line[1]))
-        {
-            $response = [
-                'success' => true,
-                'message' => "Succesfully logged in!"
-            ];
-        }else
-        {
-            $response = [
-                'success' => false,
-                'message' => "Failed to log in!"
-            ];
-        }
+        $response = [
+            'success' => true,
+            'message' => "Successfully logged in!"
+        ];
+    }else if ($password == null)
+    {
+        $response = [
+            'new' => true,
+            'message' => "There's no such account.\nIf you want to create a new one, click 'Next'."
+        ];
+    }else
+    {
+        $response = [
+            'success' => false,
+            'message' => "Failed to log in!"
+        ];
     }
+    echo json_encode($response);
 }
 
-if (!$usernameMatches)
-{
-    $response = [
-        'new' => true,
-        'message' => "There's no such account.\nClick 'Next' if you want to create a new account.",
-    ];
-}
+#region Setup
 
-header('Content-Type: application/json');
+$postedUsername = $_POST['username'];
+$postedPassword = $_POST['password'];
+$dns = "mysql:host=mysql.caesar.elte.hu;dbname=tkrissz";
 
-echo json_encode($response);
+$SQLusername = "tkrissz";
 
-fclose($accounts);
+$file = fopen("imp.dat","r");
+$SQLpassword = fread($file,filesize("imp.dat"));
+fclose($file);
+
+$response = "";
+
+$conn = new PDO($dns,$SQLusername,$SQLpassword);
+
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$sql = "SELECT password FROM Users WHERE username='" . $postedUsername . "'";
+
+#endregion
+
+FoundUser($conn->query($sql)->fetch()['password']);
