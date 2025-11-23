@@ -1,20 +1,20 @@
 <?php
 
-try{
+try {
 function SetSQLViaPlayerExisting()
 {
-    global $conn, $sql, $postedUsername, $postedPoints;
+    global $conn, $sql, $postedUsername, $postedPoints, $tn;
 
     $statement = $conn->query($sql);
 
     if ($statement->rowCount() == 0)
     {
-        $sql = "INSERT INTO Users (username, points) VALUES ('" . $postedUsername . "', " . $postedPoints . "')";
+        $sql = "INSERT INTO " . $tn . " (username, points) VALUES ('" . $postedUsername . "', '" . $postedPoints . "')";
     }else 
     {
         if ((int)$statement->fetch()['points'] <= (int)$postedPoints)
         {
-            $sql = "UPDATE Users SET points='" . $postedPoints . "' WHERE username='" . $postedUsername . "'";
+            $sql = "UPDATE " . $tn . " SET points='" . $postedPoints . "' WHERE username='" . $postedUsername . "'";
         }else exit();
     }
 
@@ -27,6 +27,8 @@ function SetSQLViaPlayerExisting()
 
 $postedUsername = $_POST['username'];
 $postedPoints = $_POST['points'];
+$postedDifficulty = $_POST['difficulty'];
+
 $dns = "mysql:host=mysql.caesar.elte.hu;dbname=tkrissz";
 
 $SQLusername = "tkrissz";
@@ -41,12 +43,30 @@ $conn = new PDO($dns,$SQLusername,$SQLpassword);
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = "SELECT username, points FROM Users WHERE username='" . $postedUsername . "'";
+$tn = "";
+
+switch ($postedDifficulty)
+{
+    case 0:
+        $tn = "Easy";
+        break;
+    case 1:
+        $tn = "Medium";
+        break;
+    case 2:
+        $tn = "Hard";
+        break;
+    default:
+        throw new InvalidArgumentException("BALFASZ");
+        break;
+}
+
+$sql = "SELECT username, points FROM " . $tn . " WHERE username='" . $postedUsername . "'";
 
 #endregion
 
 SetSQLViaPlayerExisting();
-}catch(Exception $e)
+}catch (Exception $e)
 {
     var_dump($e->getMessage());
 }

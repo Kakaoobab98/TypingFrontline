@@ -33,19 +33,33 @@ function Decode(data, formData)
     }
     if (data.success === true)
     {
-        response.innerHTML += '<button type="button" id="next" style="width: 8vw; height: 2.5vw;">Next</button>';
-        document.querySelector("#next").addEventListener('click', () => {
+        response.innerHTML += '<button type="button" id="next">Next</button>';
+        nextBtn = document.querySelector("#next");
+        nextBtn.addEventListener('click', () => {
+            response.style.display = "none";
             SetMenu(formData);
         });
     }else if (data.new === true)
     {
-        response.innerHTML += '<button type="button" id="next" style="width: 8vw; height: 2.5vw;">Next</button>';
-        document.querySelector("#next").addEventListener('click', () => {
+        response.innerHTML += '<button type="button" id="next">Next</button>';
+        nextBtn = document.querySelector("#next");
+        nextBtn.addEventListener('click', () => {
             fetch("register.php", {
                 method: 'POST',
                 body: formData
             })
+            response.style.display = "none";
             SetMenu(formData);
         });
     }
+    const back = document.createElement("button");
+    back.type = "button";
+    back.className = "backRegister";
+    back.textContent = "Back";
+
+    response.appendChild(back);
+
+    back.addEventListener('click', () => {
+        response.style.display = "none";
+    })
 }

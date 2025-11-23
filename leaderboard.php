@@ -19,6 +19,8 @@ function ShowLeaderBoard()
 
 #region Setup
 
+$postedDifficulty = $_POST['difficulty']; 
+
 $dns = "mysql:host=mysql.caesar.elte.hu;dbname=tkrissz";
 
 $SQLusername = "tkrissz";
@@ -33,7 +35,25 @@ $conn = new PDO($dns,$SQLusername,$SQLpassword);
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = "SELECT username, points, date FROM Users ORDER BY points DESC";
+$tn = "";
+
+switch ($postedDifficulty)
+{
+    case 0:
+        $tn = "Easy";
+        break;
+    case 1:
+        $tn = "Medium";
+        break;
+    case 2:
+        $tn = "Hard";
+        break;
+    default:
+        throw new InvalidArgumentException("BALFASZ");
+        break;
+}
+
+$sql = "SELECT username, points, date FROM " . $tn . " ORDER BY points DESC";
 
 #endregion
 

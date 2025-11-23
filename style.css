@@ -11,12 +11,13 @@ h1 {
     width:fit-content;
     border-style: solid;
     border-width: 0.18em 0.18em 0;
-    border-color: black;
+    border-color: rgb(202, 104, 34);
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
     margin-bottom: 0;
     padding: 0.4em;
-    background-color:blanchedalmond;
+    background-color:rgb(253, 191, 97);
+    color: rgb(89, 41, 7);
     visibility: hidden;
 }
 h3,p {
@@ -38,7 +39,7 @@ h3,p {
     height: 75vh;
     border-style: solid;
     border-width: 0.35em;
-    border-color: black;
+    border-color: rgb(202, 104, 34);
     border-radius: 1em;
     display:flex;
     position:relative;
@@ -54,7 +55,7 @@ h3,p {
     border-color: black;
 }
 #time {
-    background-color: rgb(38, 199, 17);
+    background-color: rgb(77, 255, 0);
     height: 100%;
 }
 #word {
@@ -100,6 +101,13 @@ button {
     background-color: rgb(250, 201, 127);
     transition: .2s;
     color: rgb(89, 41, 7);
+}
+#gameOver .home {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: 12vw;
+    height: 6vw;
 }
 button:hover {
     background-color: rgb(253, 191, 97);
@@ -200,6 +208,7 @@ button:hover {
     border-bottom-right-radius: 0;
     border-right: none;
     color:rgb(89, 41, 7);
+    background-color: rgb(250, 201, 127);
 }
 #points2 {
     position: relative;
@@ -235,7 +244,7 @@ button:hover {
     border-bottom-left-radius: 0.25em;
 }
 .label {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(250, 201, 127);
     padding:2%;
     border-top-right-radius: 0.5em;
     border-style:solid;
@@ -244,6 +253,7 @@ button:hover {
     border-color: rgb(202, 104, 34);
     width:min-content;
     color:rgb(89, 41, 7);
+    font-weight: bold;
 }
 .logininput {
     height: 2em;
@@ -252,6 +262,12 @@ button:hover {
     border-color: rgb(202, 104, 34);
     border-width: 0.05em;
     font-size: 1.2vw;
+    background-color: rgb(250, 201, 127);
+    color: rgb(89, 41, 7);
+}
+.logininput:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px rgb(254, 212, 149) inset !important;
+    box-shadow: 0 0 0 1000px rgb(254, 212, 149) inset !important;
 }
 form {
     display: flex;
@@ -263,15 +279,32 @@ input:focus {
     outline-width: 0.1vw;
     outline-style: solid;
 }
-.response {
+.response, .warning {
     width: 25%;
-    height:min-content;
+    height:25%;
     word-break: break-word;
-    align-content: center;
+    justify-content: top;
     align-items: center;
-    justify-content: center;
     display: none;
-    margin-left: 5%;
+    position: absolute;
+    align-self:center;
+    padding-top:5%;
+    justify-self: center;
+}
+.warning {
+    flex-direction: column;
+    padding: 2%;
+}
+#next, .backRegister, .backHome, .home {
+    position: absolute;
+    bottom:3%;
+    right: 3%;
+    width: 8vw;
+    height: 2.5vw;
+}
+.backRegister, .backHome {
+    right:auto;
+    left: 3%;
 }
 .username {
     display: none;
@@ -338,4 +371,8 @@ input:focus {
 }
 .currentBg {
     background-color: rgb(245, 163, 69);
+}
+.easy, .medium, .hard {
+    width:60%;
+    height:100%;
 }

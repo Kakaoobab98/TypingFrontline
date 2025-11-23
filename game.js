@@ -7,12 +7,24 @@ const mugiInGame = document.querySelector(".mugiInGame");
 const words = ["TANK", "PISTOL", "AXE", "SWORD", "GRENADE", "KNIFE", "MILITARY",
                "PILLOW", "ROCK", "TOUCH", "LASER", "DOG", "THUNDER", "FIREBALL",
                "ICESPIKES", "STICK", "KICK", "PUNCH", "LASEREYE", "LOVE", "HUG",
-               "STAB", "DODGE", "NIPPLETWIST"]; //HEAL
+               "STAB", "DODGE", "NIPPLETWIST", "HEAL", "HAMMER", "CROSSBOW", "SPEAR",
+               "SHURIKEN", "BAZOOKA", "FLAMETHROWER", "SHOTGUN", "SNIPER", "MINIGUN", "MACE",
+               "SPIKEBALL", "WHIP", "CHAINSAW", "DRILL", "TRIDENT", "CATAPULT", "FIRESTORM",
+               "EARTHQUAKE", "FLAMEBURST", "TORNADO", "BLIZZARD", "METEOR", "POISONCLOUD", "HEADBUTT",
+               "ELBOW", "SLAP", "SUPLEX", "BODYSLAM", "CHOKEHOLD", "SKINNING", "TICKLE",
+               "YEET", "BONK", "BOOP"];
 const enemys = ["tank", "goblin", "alienGorilla", "monster", "bunny", "cat", "asgore",
-                "something", "bat", "pigman", "gus", "walter", "nyan", "signora"];
+                "something", "bat", "pigman", "gus", "walter", "nyan", "signora",
+                "beato", "krubi", "darthvader", "edikristaqrama", "koala", "jesus", "labubu",
+                "job", "dementor", "spider", "putin", "trump", "tralalero", "tuba",
+                "tung", "voldemort", "ericcartman", "george"];
 
 const pauseBtn = document.querySelector(".pause");
 const difficultyBtn = document.querySelector(".difficulty");
+
+const easy = document.querySelector(".easy");
+const medium = document.querySelector(".medium");
+const hard = document.querySelector(".hard");
 
 const hp = document.querySelector(".hp");
 
@@ -23,6 +35,7 @@ const pause = document.querySelector("#pause");
 const gameOver = document.querySelector("#gameOver");
 const registerLogIn = document.querySelector("#registerLogIn");
 const leaderboard = document.querySelector("#leaderboard");
+const warning = document.querySelector(".warning");
 
 const wordText = document.querySelector("#wordText");
 const pointsText = document.querySelector("#points");
@@ -47,6 +60,9 @@ let enemyTimer = null;
 
 let enemyWidth = 0;
 enemy.width = enemyWidth;
+
+let dodge = false;
+let heal = false;
 
 
 ////////////////////////////////////////////////
@@ -74,6 +90,8 @@ function EnemyApproach()
 function CreateWord()
 {
     randomWord = words[Math.floor(Math.random() * words.length)];
+    if (randomWord === "DODGE")dodge = true;
+    else if (randomWord === "HEAL")heal = true;
     wordText.firstChild.innerHTML = randomWord;
     wordText.innerHTML += "!";
     for(let i = 0; i < randomWord.length; i++)
@@ -82,8 +100,8 @@ function CreateWord()
         let currentStyle = current.style;
 
         currentStyle.display = "flex";
-        currentStyle.width = "4vw";
-        currentStyle.height = "4vw";
+        currentStyle.width = "3.2vw";
+        currentStyle.height = "3.2vw";
         currentStyle.margin = "0px 0.5vw 1em";
         currentStyle.borderStyle = "solid";
         currentStyle.borderWidth = "0.35em";
@@ -92,6 +110,7 @@ function CreateWord()
         currentStyle.justifyContent = "center";
         currentStyle.alignItems = "center";
         currentStyle.backgroundColor = "rgb(250, 201, 127)";
+        currentStyle.fontSize = "0.8em";
         
         word.appendChild(current);
     }
@@ -205,11 +224,23 @@ function GameOver()
     gameOver.style.display = "flex";
 }
 
+function PreHome()
+{
+    warning.style.display = "flex";
+}
+
+function Home()
+{
+    pause.style.display = "none";
+    gameOver.style.display = "none";
+}
+
 function SavePoints()
 {
     const formData = new FormData();
     formData.append("username", document.querySelector(".username").innerText.split(" ")[1]);
     formData.append("points", points);
+    formData.append("difficulty", difficultyIndex)
 
     fetch('save_points.php', {
         method: 'POST',
@@ -242,6 +273,15 @@ function LoseHp()
     }
 }
 
+function GainHp()
+{
+    if ((hpValue+1) <= 3)
+    {
+        hpValue++;
+        hp.children.item(hpValue-1).style.backgroundImage = "url(media/hp.png)";
+    }
+}
+
 function ChangeDifficulty()
 {
     difficultyIndex++;
@@ -271,10 +311,14 @@ function SetSkin()
     document.querySelector(".mugiCry").src = "media/" + skinName + "Cry.png";
 }
 
-function LeaderBoard()
+function LeaderBoard(func)
 {
+    const formData = new FormData();
+    formData.append("difficulty", func);
+
     fetch('leaderboard.php', {
-        method: 'GET',
+        method: 'POST',
+        body: formData
     })
     .then(response => response.json())
     .then(items => {
@@ -283,7 +327,7 @@ function LeaderBoard()
         const currentUsername = document.querySelector(".currentUsername").innerHTML;
 
         table.innerHTML = `<thead><tr><th>NAMES</th><th>POINTS</th><th>DATE</th></tr></thead>`;
-
+ 
         for (const item of items)
         {
             if (item.username === currentUsername)
@@ -301,6 +345,34 @@ function LeaderBoard()
     leaderboard.style.display = "flex";
 }
 
+function Difficulty(diffIndex)
+{
+    easy.disabled = false;
+    medium.disabled = false;
+    hard.disabled = false;
+
+    easy.style.opacity = 1;
+    medium.style.opacity = 1;
+    hard.style.opacity = 1;
+
+    switch(diffIndex)
+    {
+        case 0:
+            easy.disabled = true;
+            easy.style.opacity = 0.5;
+            break;
+        case 1:
+            medium.disabled = true;
+            medium.style.opacity = 0.5;
+            break;
+        case 2:
+            hard.disabled = true;
+            hard.style.opacity = 0.5;
+            break;
+    }
+
+    return diffIndex;
+}
 
 ////////////////////////////////////////////////
 
@@ -314,9 +386,14 @@ document.body.addEventListener("click", (e) => {
         case ("instruction"):
             Instruction();
             break;
+        case("preHome"):
+            PreHome();
+            break;
+        case("backHome"):
+            warning.style.display = "none";
+            break;
         case ("home"):
-            pause.style.display = "none";
-            gameOver.style.display = "none";
+            Home();
         case ("back"):
             Back();
             break;
@@ -336,7 +413,14 @@ document.body.addEventListener("click", (e) => {
             SwitchSkin();
             break;
         case ("leaderboardBtn"):
-            LeaderBoard();
+        case ("easy"):
+            LeaderBoard(Difficulty(0));
+            break;
+        case ("medium"):
+            LeaderBoard(Difficulty(1));
+            break;
+        case ("hard"):
+            LeaderBoard(Difficulty(2));
             break;
     }
 })
@@ -368,8 +452,14 @@ addEventListener("keydown", function(e)
                 if (typed === randomWord)
                 {
                     progress += 0.2;
-                    points += Math.floor((Number)(whatsthehezag.style.width.substring(0,whatsthehezag.style.width.length-1)));
-                    pointsText.lastChild.innerHTML = points;
+                    if (heal) GainHp();
+                    else if (!dodge)
+                    {
+                        points += Math.floor((Number)(whatsthehezag.style.width.substring(0,whatsthehezag.style.width.length-1)));
+                        pointsText.lastChild.innerHTML = points;
+                    }
+                    heal = false;
+                    dodge = false;
                     NextRound();
                 }else
                 {

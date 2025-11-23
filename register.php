@@ -19,7 +19,7 @@ $conn = new PDO($dns,$SQLusername,$SQLpassword);
 
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = "INSERT INTO Users (username, password, points) VALUE ('" . $postedUsername . "', '" . password_hash($postedPassword, PASSWORD_DEFAULT) . "', '0')";
+$sql = "INSERT INTO Users (username, password) VALUE ('" . $postedUsername . "', '" . password_hash($postedPassword, PASSWORD_DEFAULT) . "')";
 
 #endregion
 

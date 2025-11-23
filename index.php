@@ -9,7 +9,7 @@
     </head>
     <body>
         <main>
-
+            
             <h1>Typing Frontline</h1>
 
             <div id="gameSpace">
@@ -59,7 +59,7 @@
 
                 <!--MENU-->
                 <div id="menu" class="scene">
-                    <image src="media/logo.png" width="30%" style="margin-top:-1%;"></image>
+                    <image src="media/logo.png" width="30%" style="margin:-1% auto;"></image>
                     <button class="start">START</button>
                     <button class="difficulty">DIFFICULTY:<p class="difficulty">EASY</p></button>
                     <button class="instruction">INSTRUCTIONS</button>
@@ -85,10 +85,12 @@
                         <h3>3.</h3>
                         <p>She will tell you what to type (to counter the attack) within the time limit.</p>
                         <h3>4.</h3>
-                        <p>Each correct word decreases the time limit.</p>
+                        <p>There are two special words: HEAL and DODGE. Each does what it means and you don't get points after them.
                         <h3>5.</h3>
-                        <p>You lose a heart for making a mistake or by failing to type the given word within the time limit.</p>
+                        <p>Each correct word decreases the time limit.</p>
                         <h3>6.</h3>
+                        <p>You lose a heart for making a mistake or by failing to type the given word within the time limit.</p>
+                        <h3>7.</h3>
                         <p>The game ends when you run out of hearts.</p>
                     </div>
                     <image src="media/mugiShows.png" width="20%" class="mugiShows"></image>
@@ -99,7 +101,14 @@
                 <div id="pause" class="scene">
                     <button class="resume">RESUME</button>
                     <button class="switch">SWITCH</button>
-                    <button class="home">HOME</button>
+                    <button class="preHome">HOME</button>
+
+                    <div class="warning text">
+                        <p style="font-weight:bold; font-size:1.5em">WARNING!</p>
+                        <p>If you exit the game, you will lose your points!</p>
+                        <button class="backHome">BACK</button>
+                        <button class="home">NEXT</button>
+                    </div>
                 </div>
 
                 <!--LEADERBOARD-->
@@ -107,13 +116,15 @@
                     <h1>LEADERBOARD</h1>
                     <div class="text leaderboard">
                         <table class="table">
-                            <tr>
-                                <th>NAME</th>
-                                <th>POINTS</th>
-                                <th>DATE</th>
-                            </tr>
                         </table>
                     </div>
+                    <table class="table" style="width:70%; height:15%">
+                        <tr>
+                            <th><button class="easy">EASY</button></th>
+                            <th><button class="medium">MEDIUM</button></th>
+                            <th><button class="hard">HARD</button></th>
+                        </tr>
+                    </table>
                     <button class="back">BACK</button>
                 </div>
             </div>
