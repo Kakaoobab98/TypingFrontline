@@ -28,6 +28,7 @@ function FoundUser($password){
 
 $postedUsername = $_POST['username'];
 $postedPassword = $_POST['password'];
+
 $dns = "mysql:host=mysql.caesar.elte.hu;dbname=tkrissz";
 
 $SQLusername = "tkrissz";

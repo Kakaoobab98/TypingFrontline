@@ -21,6 +21,15 @@ function SetMenu(formData)
     Menu();
 }
 
+function LogOut()
+{
+    const username = document.querySelector(".username");
+    username.innerHTML = "";
+    username.style.display = "none";
+    document.querySelector(".post").reset();
+    Register();
+}
+
 function Decode(data, formData)
 {
     const response = document.querySelector(".response")

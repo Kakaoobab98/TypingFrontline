@@ -135,7 +135,7 @@ button:hover {
     bottom: 1%;
     left: 1%;
 }
-.pause {
+.pause, .logOut {
     width: 8vw;
     height: 4vw;
     position: absolute;

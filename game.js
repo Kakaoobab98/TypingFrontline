@@ -193,6 +193,12 @@ function Menu()
     menu.style.display = "flex";
 }
 
+function Register()
+{
+    menu.style.display = "none";
+    registerLogIn.style.display = "flex";
+}
+
 function Back()
 {
     instruction.style.display = "none";
@@ -374,6 +380,7 @@ function Difficulty(diffIndex)
     return diffIndex;
 }
 
+
 ////////////////////////////////////////////////
 
 
@@ -385,6 +392,9 @@ document.body.addEventListener("click", (e) => {
             break;
         case ("instruction"):
             Instruction();
+            break;
+        case ("logOut"):
+            LogOut();
             break;
         case("preHome"):
             PreHome();
